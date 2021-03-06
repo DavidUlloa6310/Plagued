@@ -2,6 +2,7 @@ package com.mygdx.game.sprites;
 
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -9,7 +10,7 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.PlaguedGame;
 import com.mygdx.game.screens.PlayScreen;
 
-public abstract class Character extends Sprite {
+public class Character extends Sprite {
 
     protected enum State {
         STANDING, RUNNING;
@@ -25,18 +26,26 @@ public abstract class Character extends Sprite {
     private float stateTimer;
     private boolean runningRight;
 
-    public Character(World world, PlayScreen screen, int spriteX,  int spriteY, int width, int height, int length) {
-        //super();
+    public Character(World world, PlayScreen screen, String name, int width, int height) {
+        super(screen.getAtlas().findRegion(name));
         this.world = world;
         currentState = previousState = State.STANDING;
         stateTimer = 0;
         runningRight = true;
 
-
-
         Array<TextureRegion> frames = new Array<>();
+        for (int i = 1; i < 6; i++) {
+            frames.add(new TextureRegion(getTexture(), i * getRegionWidth(), getRegionY(), getWidth(), getHeight()));
+        }
+        characterRun = new Animation<TextureRegion>(.1f, frames);
 
         defineCharacter();
+
+        characterStand = new TextureRegion(getTexture(), getRegionX(), getRegionY(), getRegionWidth(), getRegionHeight());
+        setBounds(0, 0, getRegionWidth() / PlaguedGame.PPM, getRegionY() / PlaguedGame.PPM);
+        setRegion(characterStand);
+
+        frames.clear();
     }
 
     public void defineCharacter() {
