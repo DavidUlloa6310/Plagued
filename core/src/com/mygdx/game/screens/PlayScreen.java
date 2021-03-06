@@ -45,6 +45,8 @@ public class PlayScreen implements Screen {
             }
         }
 
+        game.batch.draw(gunnerModel, 0, 0);
+
 
         game.batch.end();
     }
