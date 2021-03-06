@@ -11,7 +11,7 @@ import com.mygdx.game.screens.PlayScreen;
 public class PlaguedGame extends Game {
 
 	public static final int WIDTH = 800;
-	public static final int HEIGHT = 800;
+	public static final int HEIGHT = 600;
 	public static final String TITLE = "Plagued";
 
 	public SpriteBatch batch;
