@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.PlaguedGame;
@@ -12,6 +13,8 @@ import com.mygdx.game.PlaguedGame;
 public class PlayScreen implements Screen {
 
     private PlaguedGame game;
+    private TextureAtlas atlas;
+
     private OrthographicCamera gameCam;
     private Viewport gamePort;
 
@@ -19,11 +22,17 @@ public class PlayScreen implements Screen {
     private Texture gunnerModel = new Texture("gunnerModel.png");
 
     public PlayScreen(PlaguedGame game) {
+        atlas = new TextureAtlas("");
+
         this.game = game;
         gameCam = new OrthographicCamera();
-        gamePort = new FitViewport(PlaguedGame.WIDTH, PlaguedGame.HEIGHT, gameCam);
+        gamePort = new FitViewport(PlaguedGame.WIDTH / PlaguedGame.PPM, PlaguedGame.HEIGHT / PlaguedGame.PPM, gameCam);
 
         gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
+    }
+
+    public TextureAtlas getAtlas() {
+        return atlas;
     }
 
     @Override
