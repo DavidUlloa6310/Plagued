@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.PlaguedGame;
 import com.mygdx.game.screens.PlayScreen;
 
-public class Character extends Sprite {
+public abstract class GameCharacter extends Sprite {
 
     protected enum State {
         STANDING, RUNNING;
@@ -26,27 +26,27 @@ public class Character extends Sprite {
     private float stateTimer;
     private boolean runningRight;
 
-    public Character(World world, PlayScreen screen, String name, int width, int height) {
+    public GameCharacter(World world, PlayScreen screen, String name) {
         super(screen.getAtlas().findRegion(name));
         this.world = world;
         currentState = previousState = State.STANDING;
         stateTimer = 0;
         runningRight = true;
 
-        Array<TextureRegion> frames = new Array<>();
-        for (int i = 1; i < 6; i++) {
-            frames.add(new TextureRegion(getTexture(), i * getRegionWidth(), getRegionY(), getWidth(), getHeight()));
-        }
-        characterRun = new Animation<TextureRegion>(.1f, frames);
+//        Array<TextureRegion> frames = new Array<>();
+//        for (int i = 1; i < 6; i++) {
+//            frames.add(new TextureRegion(getTexture(), i * 30, 25, 30, 25));
+//        }
+//        characterRun = new Animation<TextureRegion>(.1f, frames);
+//        frames.clear();
 
         defineCharacter();
 
-        characterStand = new TextureRegion(getTexture(), getRegionX(), getRegionY(), getRegionWidth(), getRegionHeight());
+        characterStand = new TextureRegion(getTexture(),1, 25, 30, 25);
         setBounds(0, 0, getRegionWidth() / PlaguedGame.PPM, getRegionY() / PlaguedGame.PPM);
         setRegion(characterStand);
 
         b2body.setLinearDamping(7);
-        frames.clear();
     }
 
     public void defineCharacter() {
