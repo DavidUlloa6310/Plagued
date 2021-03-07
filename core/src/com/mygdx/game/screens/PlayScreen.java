@@ -18,11 +18,13 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.PlaguedGame;
 import com.mygdx.game.sprites.GameCharacter;
+import com.mygdx.game.sprites.Gunner;
+import com.mygdx.game.sprites.Hero;
 import com.mygdx.game.sprites.Ninja;
 
 public class PlayScreen implements Screen {
 
-    private GameCharacter player;
+    private Hero player;
 
     private PlaguedGame game;
     private TextureAtlas atlas;
@@ -57,7 +59,7 @@ public class PlayScreen implements Screen {
         world = new World(new Vector2(0, 0), true);
         b2dr = new Box2DDebugRenderer();
 
-        player = new Ninja(world, this);
+        player = new Gunner(world, this);
 
     }
 

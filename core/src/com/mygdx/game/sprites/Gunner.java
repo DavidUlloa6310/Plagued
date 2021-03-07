@@ -3,9 +3,9 @@ package com.mygdx.game.sprites;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.screens.PlayScreen;
 
-public class Ninja extends Hero {
-    public Ninja(World world, PlayScreen screen) {
-        super(world, screen, "ninja", 25, 30);
+public class Gunner extends Hero {
+    public Gunner(World world, PlayScreen screen) {
+        super(world, screen, "gunner", 29, 31);
     }
 
     @Override

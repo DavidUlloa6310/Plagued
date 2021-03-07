@@ -30,12 +30,13 @@ public abstract class GameCharacter extends Sprite {
         super(screen.getAtlas().findRegion(name));
         this.world = world;
         currentState = previousState = State.STANDING;
-        stateTimer = 0;
+        stateTimer = 0f;
         runningRight = true;
 
         Array<TextureRegion> frames = new Array<>();
-        for (int i = 1; i < 6; i++) {
-            frames.add(new TextureRegion(getTexture(), i * width, 1, width, height));
+        for (int i = 1; i < 8; i++) {
+            frames.add(new TextureRegion(getTexture(), (i * width) + 1, 1, width, height));
+            System.out.println(i * width);
         }
         characterRun = new Animation<TextureRegion>(.1f, frames);
         frames.clear();
@@ -73,7 +74,7 @@ public abstract class GameCharacter extends Sprite {
 
         switch (currentState) {
             case RUNNING:
-                region = characterRun.getKeyFrame(stateTimer);
+                region = characterRun.getKeyFrame(stateTimer, true);
                 break;
             case STANDING:
             default:
@@ -96,17 +97,11 @@ public abstract class GameCharacter extends Sprite {
     }
 
     public State getState() {
-        if (b2body.getLinearVelocity().x != 0) {
+        if (b2body.getLinearVelocity().x != 0 || b2body.getLinearVelocity().y != 0) {
             return State.RUNNING;
         } else {
             return State.STANDING;
         }
     }
-
-//    public abstract void passive();
-//    public abstract void primary();
-//    public abstract void shift();
-//    public abstract void special();
-//    public abstract void ultimate();
 
 }
