@@ -45,6 +45,7 @@ public class Character extends Sprite {
         setBounds(0, 0, getRegionWidth() / PlaguedGame.PPM, getRegionY() / PlaguedGame.PPM);
         setRegion(characterStand);
 
+        b2body.setLinearDamping(7);
         frames.clear();
     }
 
