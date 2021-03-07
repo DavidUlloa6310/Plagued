@@ -5,6 +5,6 @@ import com.mygdx.game.screens.PlayScreen;
 
 public class Ninja extends GameCharacter {
     public Ninja(World world, PlayScreen screen) {
-        super(world, screen, "ninja");
+        super(world, screen, "ninja", 24, 30);
     }
 }

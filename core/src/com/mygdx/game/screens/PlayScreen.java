@@ -1,6 +1,7 @@
 package com.mygdx.game.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -65,8 +66,14 @@ public class PlayScreen implements Screen {
     }
 
     public void handleInput(float dt) {
-        if (Gdx.input.isTouched())
-            player.b2body.applyLinearImpulse(new Vector2(0, 1f), player.b2body.getWorldCenter(), true);
+        if (Gdx.input.isKeyPressed(Input.Keys.W))
+            player.b2body.applyLinearImpulse(new Vector2(0, .25f), player.b2body.getWorldCenter(), true);
+        if (Gdx.input.isKeyPressed(Input.Keys.A))
+            player.b2body.applyLinearImpulse(new Vector2(-.25f, 0), player.b2body.getWorldCenter(), true);
+        if (Gdx.input.isKeyPressed(Input.Keys.D))
+            player.b2body.applyLinearImpulse(new Vector2(.25f, 0), player.b2body.getWorldCenter(), true);
+        if (Gdx.input.isKeyPressed(Input.Keys.S))
+            player.b2body.applyLinearImpulse(new Vector2(0, -.25f), player.b2body.getWorldCenter(), true);
     }
 
     public void update(float dt) {
