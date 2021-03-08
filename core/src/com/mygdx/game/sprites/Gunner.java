@@ -15,7 +15,7 @@ public class Gunner extends Hero {
 
     @Override
     public void primary() {
-
+        getBullets().add(new Bullet(b2body.getPosition().x, b2body.getPosition().y));
     }
 
     @Override

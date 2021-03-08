@@ -17,10 +17,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.PlaguedGame;
-import com.mygdx.game.sprites.GameCharacter;
-import com.mygdx.game.sprites.Gunner;
-import com.mygdx.game.sprites.Hero;
-import com.mygdx.game.sprites.Ninja;
+import com.mygdx.game.sprites.*;
 
 public class PlayScreen implements Screen {
 
@@ -66,6 +63,8 @@ public class PlayScreen implements Screen {
     }
 
     public void handleInput(float dt) {
+        if (Gdx.input.isKeyPressed(Input.Keys.F))
+            player.primary();
         if (Gdx.input.isKeyPressed(Input.Keys.W))
             player.b2body.applyLinearImpulse(new Vector2(0, .25f), player.b2body.getWorldCenter(), true);
         if (Gdx.input.isKeyPressed(Input.Keys.A))
@@ -82,6 +81,10 @@ public class PlayScreen implements Screen {
         player.update(dt);
 
         world.step(1 / 60f, 6, 2);
+
+        for (Bullet bullet : player.getBullets()) {
+            bullet.update(dt);
+        }
 
         gameCam.position.x = player.b2body.getPosition().x;
         gameCam.position.y = player.b2body.getPosition().y;
@@ -108,6 +111,9 @@ public class PlayScreen implements Screen {
 
         game.batch.begin();
         player.draw(game.batch);
+        for (Bullet bullet : player.getBullets()) {
+            bullet.render(game.batch);
+        }
         game.batch.end();
     }
 
