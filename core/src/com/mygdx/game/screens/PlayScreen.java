@@ -44,8 +44,6 @@ public class PlayScreen implements Screen {
     public PlayScreen(PlaguedGame game) {
         atlas = new TextureAtlas("plagued.atlas");
 
-        gunnerModel = new Texture("gunnerModel.png");
-
         this.game = game;
         gameCam = new OrthographicCamera();
         gamePort = new FitViewport(PlaguedGame.WIDTH / PlaguedGame.PPM, PlaguedGame.HEIGHT / PlaguedGame.PPM, gameCam);
