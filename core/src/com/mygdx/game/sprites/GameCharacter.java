@@ -26,17 +26,16 @@ public abstract class GameCharacter extends Sprite {
     private float stateTimer;
     private boolean runningRight;
 
-    public GameCharacter(World world, PlayScreen screen, String name, int width, int height) {
+    public GameCharacter(PlayScreen screen, String name, int width, int height) {
         super(screen.getAtlas().findRegion(name));
-        this.world = world;
+        this.world = screen.getWorld();
         currentState = previousState = State.STANDING;
         stateTimer = 0f;
         runningRight = true;
 
         Array<TextureRegion> frames = new Array<>();
         for (int i = 1; i < 8; i++) {
-            frames.add(new TextureRegion(getTexture(), (i * width) + 1, 1, width, height));
-            System.out.println(i * width);
+            frames.add(new TextureRegion(getTexture(), (i * width) + 1, getRegionY(), width, height));
         }
         characterRun = new Animation<TextureRegion>(.1f, frames);
         frames.clear();
@@ -104,4 +103,7 @@ public abstract class GameCharacter extends Sprite {
         }
     }
 
+    public boolean isRunningRight() {
+        return runningRight;
+    }
 }

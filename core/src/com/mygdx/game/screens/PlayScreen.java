@@ -54,7 +54,7 @@ public class PlayScreen implements Screen {
         world = new World(new Vector2(0, 0), true);
         b2dr = new Box2DDebugRenderer();
 
-        player = new Gunner(world, this);
+        player = new Gunner(this);
 
     }
 
@@ -63,7 +63,7 @@ public class PlayScreen implements Screen {
     }
 
     public void handleInput(float dt) {
-        if (Gdx.input.isKeyPressed(Input.Keys.F))
+        if (Gdx.input.isKeyJustPressed(Input.Keys.F))
             player.primary();
         if (Gdx.input.isKeyPressed(Input.Keys.W))
             player.b2body.applyLinearImpulse(new Vector2(0, .25f), player.b2body.getWorldCenter(), true);
@@ -93,6 +93,10 @@ public class PlayScreen implements Screen {
         renderer.setView(gameCam);
     }
 
+    public World getWorld() {
+        return world;
+    }
+
     @Override
     public void show() {
 
@@ -111,9 +115,6 @@ public class PlayScreen implements Screen {
 
         game.batch.begin();
         player.draw(game.batch);
-        for (Bullet bullet : player.getBullets()) {
-            bullet.render(game.batch);
-        }
         game.batch.end();
     }
 

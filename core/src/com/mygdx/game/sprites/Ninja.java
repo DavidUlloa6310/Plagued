@@ -5,7 +5,7 @@ import com.mygdx.game.screens.PlayScreen;
 
 public class Ninja extends Hero {
     public Ninja(World world, PlayScreen screen) {
-        super(world, screen, "ninja", 25, 30);
+        super(screen, "ninja", 25, 30);
     }
 
     @Override

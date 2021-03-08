@@ -8,8 +8,8 @@ public abstract class Hero extends GameCharacter{
 
     private Array<Bullet> bullets;
 
-    public Hero(World world, PlayScreen screen, String name, int width, int height) {
-        super(world, screen, name, width, height);
+    public Hero(PlayScreen screen, String name, int width, int height) {
+        super(screen, name, width, height);
         bullets = new Array<Bullet>();
     }
 
