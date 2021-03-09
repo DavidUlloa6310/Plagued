@@ -7,19 +7,17 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.PlaguedGame;
 import com.mygdx.game.sprites.*;
-import com.mygdx.game.tools.B2WorldCreator;
+import com.mygdx.game.tools.MapBodyBuilder;
 
 public class PlayScreen implements Screen {
 
@@ -55,10 +53,11 @@ public class PlayScreen implements Screen {
 
         world = new World(new Vector2(0, 0), true);
         b2dr = new Box2DDebugRenderer();
+        b2dr.setDrawBodies(false);
 
-        new B2WorldCreator(world, map);
+        MapBodyBuilder.buildShapes(map, world);
 
-        player = new Gunner(this);
+        player = new Ninja(this);
 
     }
 

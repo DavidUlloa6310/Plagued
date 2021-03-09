@@ -27,8 +27,8 @@ public class Bullet extends Sprite {
     private float stateTimer = 0f;
     private boolean facingRight;
 
-    public Bullet(float x, float y, int width, int height, boolean facingRight, PlayScreen screen) {
-        super(screen.getAtlas().findRegion("shuriken"));
+    public Bullet(String name, float x, float y, int width, int height, boolean facingRight, PlayScreen screen) {
+        super(screen.getAtlas().findRegion(name));
         this.world = screen.getWorld();
         this.x = x;
         this.y = y;
@@ -78,7 +78,7 @@ public class Bullet extends Sprite {
         setRegion(getFrame(dt));
 
         //FIX REMOVE IF BIGGER THAN WORLD SIZE.
-        if (b2body.getPosition().x < 0 || b2body.getPosition().y < 0 || b2body.getPosition().x > worldWidth || b2body.getPosition().y > worldHeight) {
+        if (b2body.getPosition().x < .15 || b2body.getPosition().y < .15 || b2body.getPosition().x > worldWidth - .15 || b2body.getPosition().y > worldHeight - .15) {
             remove = true;
         }
     }
