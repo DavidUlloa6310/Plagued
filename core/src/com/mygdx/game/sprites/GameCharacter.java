@@ -35,7 +35,7 @@ public abstract class GameCharacter extends Sprite {
 
         Array<TextureRegion> frames = new Array<>();
         for (int i = 1; i < 8; i++) {
-            frames.add(new TextureRegion(getTexture(), (i * width) + 1, getRegionY(), width, height));
+            frames.add(new TextureRegion(getTexture(), (i * width) + getRegionX(), getRegionY(), width, height));
         }
         characterRun = new Animation<TextureRegion>(.1f, frames);
         frames.clear();

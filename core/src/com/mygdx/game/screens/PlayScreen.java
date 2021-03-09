@@ -38,7 +38,6 @@ public class PlayScreen implements Screen {
     private Box2DDebugRenderer b2dr;
 
     private Texture gunnerModel;
-    private Array<Bullet> bulletToRemove;
 
     public PlayScreen(PlaguedGame game) {
         atlas = new TextureAtlas("plagued.atlas");
@@ -48,7 +47,7 @@ public class PlayScreen implements Screen {
         gamePort = new FitViewport(PlaguedGame.WIDTH / PlaguedGame.PPM, PlaguedGame.HEIGHT / PlaguedGame.PPM, gameCam);
 
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("map.tmx");
+        map = mapLoader.load("endlessMap.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1 / PlaguedGame.PPM);
 
         gameCam.position.set(gamePort.getWorldWidth() / 2, gamePort.getWorldHeight() / 2, 0);
@@ -79,8 +78,6 @@ public class PlayScreen implements Screen {
 
     public void update(float dt) {
 
-        bulletToRemove = new Array<Bullet>();
-
         handleInput(dt);
 
         player.update(dt);
@@ -90,12 +87,12 @@ public class PlayScreen implements Screen {
         for (Bullet bullet : player.getBullets()) {
             bullet.update(dt);
             if (bullet.remove) {
-                bulletToRemove.add(bullet);
+                player.getBulletsToRemove().add(bullet);
                 world.destroyBody(bullet.b2body);
             }
         }
 
-        player.getBullets().removeAll(bulletToRemove, true);
+        player.getBullets().removeAll(player.getBulletsToRemove(), true);
 
         gameCam.position.x = player.b2body.getPosition().x;
         gameCam.position.y = player.b2body.getPosition().y;

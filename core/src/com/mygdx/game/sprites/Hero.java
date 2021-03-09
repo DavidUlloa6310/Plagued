@@ -7,15 +7,22 @@ import com.mygdx.game.screens.PlayScreen;
 public abstract class Hero extends GameCharacter{
 
     private Array<Bullet> bullets;
+    private Array<Bullet> bulletsToRemove;
+
+    private PlayScreen screen;
 
     public Hero(PlayScreen screen, String name, int width, int height) {
         super(screen, name, width, height);
         bullets = new Array<Bullet>();
+        bulletsToRemove = new Array<Bullet>();
+        this.screen = screen;
     }
 
     public Array<Bullet> getBullets() {
         return bullets;
     }
+    public Array<Bullet> getBulletsToRemove() { return bulletsToRemove; }
+    public PlayScreen getScreen() { return screen; }
 
     public abstract void passive();
     public abstract void primary();
