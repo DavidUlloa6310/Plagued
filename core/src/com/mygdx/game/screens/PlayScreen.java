@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.PlaguedGame;
 import com.mygdx.game.sprites.*;
+import com.mygdx.game.tools.B2WorldCreator;
 
 public class PlayScreen implements Screen {
 
@@ -54,6 +55,8 @@ public class PlayScreen implements Screen {
 
         world = new World(new Vector2(0, 0), true);
         b2dr = new Box2DDebugRenderer();
+
+        new B2WorldCreator(world, map);
 
         player = new Gunner(this);
 
