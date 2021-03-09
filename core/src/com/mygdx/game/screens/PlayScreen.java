@@ -14,6 +14,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.PlaguedGame;
@@ -37,6 +38,7 @@ public class PlayScreen implements Screen {
     private Box2DDebugRenderer b2dr;
 
     private Texture gunnerModel;
+    private Array<Bullet> bulletToRemove;
 
     public PlayScreen(PlaguedGame game) {
         atlas = new TextureAtlas("plagued.atlas");
@@ -76,6 +78,9 @@ public class PlayScreen implements Screen {
     }
 
     public void update(float dt) {
+
+        bulletToRemove = new Array<Bullet>();
+
         handleInput(dt);
 
         player.update(dt);
@@ -84,7 +89,13 @@ public class PlayScreen implements Screen {
 
         for (Bullet bullet : player.getBullets()) {
             bullet.update(dt);
+            if (bullet.remove) {
+                bulletToRemove.add(bullet);
+                world.destroyBody(bullet.b2body);
+            }
         }
+
+        player.getBullets().removeAll(bulletToRemove, true);
 
         gameCam.position.x = player.b2body.getPosition().x;
         gameCam.position.y = player.b2body.getPosition().y;
@@ -115,6 +126,9 @@ public class PlayScreen implements Screen {
 
         game.batch.begin();
         player.draw(game.batch);
+        for (Bullet bullet : player.getBullets()) {
+            bullet.draw(game.batch);
+        }
         game.batch.end();
     }
 
@@ -141,5 +155,15 @@ public class PlayScreen implements Screen {
     @Override
     public void dispose() {
 
+    }
+
+    public float getWorldWidth() {
+        //FIX THIS
+        return gamePort.getWorldWidth();
+    }
+
+    public float getWorldHeight() {
+        //FIX THIS
+        return gamePort.getWorldHeight();
     }
 }

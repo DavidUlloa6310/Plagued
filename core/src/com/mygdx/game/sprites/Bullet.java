@@ -1,6 +1,7 @@
 package com.mygdx.game.sprites;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -15,6 +16,7 @@ public class Bullet extends Sprite {
     private final int SPEED = 1000;
 
     float x, y;
+    float worldWidth, worldHeight;
 
     public boolean remove = false;
 
@@ -32,15 +34,18 @@ public class Bullet extends Sprite {
         this.y = y;
         this.facingRight = facingRight;
 
+        this.worldWidth = screen.getWorldWidth();
+        this.worldHeight = screen.getWorldHeight();
+
         Array<TextureRegion> frames = new Array<>();
         for (int i = 0; i < 4; i++) {
-            frames.add(new TextureRegion(getTexture(), (i * width) + 1, getRegionY(), width, height));
+            frames.add(new TextureRegion(getTexture(), (i * width) + getRegionX(), getRegionY(), width, height));
         }
-        bulletAnimation = new Animation<TextureRegion>(.1f, frames);
-        frames.clear();
+        bulletAnimation = new Animation<TextureRegion>(.5f, frames);
 
         defineBullet(x, y);
         setBounds(0, 0, width / PlaguedGame.PPM, height /PlaguedGame.PPM);
+        setRegion(frames.get(0));
 
         if (facingRight) {
             b2body.setLinearVelocity(new Vector2(10f, 0));
@@ -69,22 +74,29 @@ public class Bullet extends Sprite {
 
     public void update(float dt) {
 
-        if (x > Gdx.graphics.getWidth()) {
-            remove  = true;
-        }
-
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
         setRegion(getFrame(dt));
+
+        //FIX REMOVE IF BIGGER THAN WORLD SIZE.
+        if (b2body.getPosition().x < 0 || b2body.getPosition().y < 0 || b2body.getPosition().x > worldWidth || b2body.getPosition().y > worldHeight) {
+            remove = true;
+        }
     }
 
     public TextureRegion getFrame(float dt) {
         TextureRegion region = bulletAnimation.getKeyFrame(stateTimer, true);
-        if (!facingRight && !isFlipX()) {
-            flip(true, false);
-        } else if (facingRight && isFlipX()) {
-            flip(true, false);
+        if (!facingRight && !region.isFlipX()) {
+            region.flip(true, false);
+        } else if (facingRight && region.isFlipX()) {
+            region.flip(true, false);
         }
 
+        stateTimer += dt;
+
         return region;
+    }
+
+    public void dispose() {
+        b2body.setLinearVelocity(new Vector2(0,0));
     }
 }
