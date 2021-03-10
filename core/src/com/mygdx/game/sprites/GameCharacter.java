@@ -51,7 +51,7 @@ public abstract class GameCharacter extends Sprite {
 
     public void defineCharacter() {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(100 / PlaguedGame.PPM, 100 / PlaguedGame.PPM);
+        bdef.position.set(50 / PlaguedGame.PPM, 750 / PlaguedGame.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 

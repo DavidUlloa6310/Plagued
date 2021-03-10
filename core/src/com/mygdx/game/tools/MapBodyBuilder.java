@@ -17,7 +17,7 @@ public class MapBodyBuilder {
     private static float ppt = PlaguedGame.PPM;
 
     public static Array<Body> buildShapes(Map map, World world) {
-        MapObjects objects = map.getLayers().get(2).getObjects();
+        MapObjects objects = map.getLayers().get(3).getObjects();
 
         Array<Body> bodies = new Array<Body>();
 
