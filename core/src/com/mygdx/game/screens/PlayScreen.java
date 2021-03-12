@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
@@ -43,7 +44,7 @@ public class PlayScreen implements Screen {
 
         this.game = game;
         gameCam = new OrthographicCamera();
-        gamePort = new FitViewport(PlaguedGame.WIDTH / PlaguedGame.PPM, PlaguedGame.HEIGHT / PlaguedGame.PPM, gameCam);
+        gamePort = new FitViewport(PlaguedGame.WIDTH / 1.1f / PlaguedGame.PPM, PlaguedGame.HEIGHT / 1.1f / PlaguedGame.PPM, gameCam);
 
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("endlessMap.tmx");
@@ -53,11 +54,11 @@ public class PlayScreen implements Screen {
 
         world = new World(new Vector2(0, 0), true);
         b2dr = new Box2DDebugRenderer();
-        b2dr.setDrawBodies(false);
+        b2dr.setDrawBodies(true);
 
         MapBodyBuilder.buildShapes(map, world);
 
-        player = new Ninja(this);
+        player = new Gunner(this);
 
     }
 

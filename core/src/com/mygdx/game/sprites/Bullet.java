@@ -69,6 +69,7 @@ public class Bullet extends Sprite {
         CircleShape shape = new CircleShape();
         shape.setRadius(6 / PlaguedGame.PPM);
         fdef.shape = shape;
+        fdef.isSensor = true;
         b2body.createFixture(fdef);
     }
 
