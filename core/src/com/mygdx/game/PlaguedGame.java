@@ -10,8 +10,8 @@ import com.mygdx.game.screens.PlayScreen;
 
 public class PlaguedGame extends Game {
 
-	public static final int WIDTH = 800;
-	public static final int HEIGHT = 800;
+	public static final int WIDTH = 1600;
+	public static final int HEIGHT = 1600;
 	public static final float PPM = 100;
 	public static final String TITLE = "Plagued";
 
