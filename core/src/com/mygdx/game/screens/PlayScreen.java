@@ -44,7 +44,7 @@ public class PlayScreen implements Screen {
 
         this.game = game;
         gameCam = new OrthographicCamera();
-        gamePort = new FitViewport(PlaguedGame.WIDTH / 1.1f / PlaguedGame.PPM, PlaguedGame.HEIGHT / 1.1f / PlaguedGame.PPM, gameCam);
+        gamePort = new FitViewport(PlaguedGame.WIDTH / .75f / PlaguedGame.PPM, PlaguedGame.HEIGHT / .75f / PlaguedGame.PPM, gameCam);
 
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("endlessMap.tmx");
@@ -54,9 +54,10 @@ public class PlayScreen implements Screen {
 
         world = new World(new Vector2(0, 0), true);
         b2dr = new Box2DDebugRenderer();
-        b2dr.setDrawBodies(true);
+        b2dr.setDrawBodies(false);
 
-        MapBodyBuilder.buildShapes(map, world);
+        MapBodyBuilder.buildShapes(map, world, "Obstacles");
+        MapBodyBuilder.buildShapes(map, world, "Water");
 
         player = new Gunner(this);
 
@@ -159,11 +160,11 @@ public class PlayScreen implements Screen {
 
     public float getWorldWidth() {
         //FIX THIS
-        return gamePort.getWorldWidth();
+        return PlaguedGame.WIDTH * 2 / PlaguedGame.PPM;
     }
 
     public float getWorldHeight() {
         //FIX THIS
-        return gamePort.getWorldHeight();
+        return PlaguedGame.HEIGHT * 2/ PlaguedGame.PPM;
     }
 }
