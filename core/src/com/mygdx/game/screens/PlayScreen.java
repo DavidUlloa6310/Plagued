@@ -19,6 +19,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.PlaguedGame;
 import com.mygdx.game.sprites.*;
 import com.mygdx.game.tools.MapBodyBuilder;
+import com.mygdx.game.tools.WorldContactListener;
 
 public class PlayScreen implements Screen {
 
@@ -59,6 +60,8 @@ public class PlayScreen implements Screen {
         MapBodyBuilder.buildShapes(map, world);
 
         player = new Gunner(this);
+
+        world.setContactListener(new WorldContactListener());
 
     }
 
@@ -158,12 +161,12 @@ public class PlayScreen implements Screen {
     }
 
     public float getWorldWidth() {
-        //FIX THIS
-        return PlaguedGame.WIDTH / PlaguedGame.PPM;
+        float dimension = (float) map.getProperties().get("width", Integer.class) * map.getProperties().get("tilewidth", Integer.class);
+        return dimension / PlaguedGame.PPM;
     }
 
     public float getWorldHeight() {
-        //FIX THIS
-        return PlaguedGame.HEIGHT / PlaguedGame.PPM;
+        float dimension = (float) map.getProperties().get("height", Integer.class) * map.getProperties().get("tileheight", Integer.class);
+        return dimension / PlaguedGame.PPM;
     }
 }
