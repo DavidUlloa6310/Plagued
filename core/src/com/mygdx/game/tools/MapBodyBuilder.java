@@ -16,8 +16,8 @@ public class MapBodyBuilder {
     // The pixels per tile. If your tiles are 16x16, this is set to 16f
     private static float ppt = PlaguedGame.PPM;
 
-    public static Array<Body> buildShapes(Map map, World world) {
-        MapObjects objects = map.getLayers().get("Obstacles").getObjects();
+    public static Array<Body> buildShapes(Map map, World world, String layerName) {
+        MapObjects objects = map.getLayers().get(layerName).getObjects();
 
         Array<Body> bodies = new Array<Body>();
 

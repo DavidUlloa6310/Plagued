@@ -57,7 +57,9 @@ public class PlayScreen implements Screen {
         b2dr = new Box2DDebugRenderer();
         b2dr.setDrawBodies(false);
 
-        MapBodyBuilder.buildShapes(map, world);
+        MapBodyBuilder.buildShapes(map, world, "Obstacles");
+        MapBodyBuilder.buildShapes(map, world, "Water");
+        MapBodyBuilder.buildShapes(map, world, "Walls");
 
         player = new Gunner(this);
 
