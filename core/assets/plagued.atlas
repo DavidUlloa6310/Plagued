@@ -5,28 +5,35 @@ filter: Nearest,Nearest
 repeat: none
 gunner
   rotate: false
-  xy: 1, 28
+  xy: 1, 95
   size: 232, 31
   orig: 232, 31
   offset: 0, 0
   index: -1
 shuriken
   rotate: false
-  xy: 235, 33
+  xy: 1, 67
   size: 236, 26
   orig: 236, 26
   offset: 0, 0
   index: -1
 ninja
   rotate: false
-  xy: 235, 1
+  xy: 1, 35
   size: 200, 30
   orig: 200, 30
   offset: 0, 0
   index: -1
+zdefault
+  rotate: false
+  xy: 1, 1
+  size: 168, 32
+  orig: 168, 32
+  offset: 0, 0
+  index: -1
 gunnerBullet
   rotate: false
-  xy: 1, 20
+  xy: 203, 59
   size: 52, 6
   orig: 52, 6
   offset: 0, 0

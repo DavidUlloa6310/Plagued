@@ -70,7 +70,7 @@ public class Bullet extends Sprite {
         shape.setRadius(6 / PlaguedGame.PPM);
         fdef.shape = shape;
         fdef.isSensor = true;
-        b2body.createFixture(fdef).setUserData("bullet");
+        b2body.createFixture(fdef).setUserData(this);
     }
 
     public void update(float dt) {

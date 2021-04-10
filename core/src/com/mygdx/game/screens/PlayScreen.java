@@ -21,9 +21,12 @@ import com.mygdx.game.sprites.*;
 import com.mygdx.game.tools.MapBodyBuilder;
 import com.mygdx.game.tools.WorldContactListener;
 
+import java.util.ArrayList;
+
 public class PlayScreen implements Screen {
 
     private Hero player;
+    private ArrayList<Zombie> zombies;
 
     private PlaguedGame game;
     private TextureAtlas atlas;
@@ -37,8 +40,6 @@ public class PlayScreen implements Screen {
 
     private World world;
     private Box2DDebugRenderer b2dr;
-
-    private Texture gunnerModel;
 
     public PlayScreen(PlaguedGame game) {
         atlas = new TextureAtlas("plagued.atlas");
@@ -62,6 +63,7 @@ public class PlayScreen implements Screen {
         MapBodyBuilder.buildShapes(map, world, "Walls");
 
         player = new Gunner(this);
+        zombies = new ArrayList<>();
 
         world.setContactListener(new WorldContactListener());
 
@@ -82,6 +84,8 @@ public class PlayScreen implements Screen {
             player.b2body.applyLinearImpulse(new Vector2(.25f, 0), player.b2body.getWorldCenter(), true);
         if (Gdx.input.isKeyPressed(Input.Keys.S))
             player.b2body.applyLinearImpulse(new Vector2(0, -.25f), player.b2body.getWorldCenter(), true);
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE))
+            zombies.add(new DefaultZombie(this));
     }
 
     public void update(float dt) {
@@ -97,6 +101,14 @@ public class PlayScreen implements Screen {
             if (bullet.remove) {
                 player.getBulletsToRemove().add(bullet);
                 world.destroyBody(bullet.b2body);
+            }
+        }
+
+        for (Zombie zombie : zombies) {
+            zombie.update(dt, player);
+            if (zombie.remove) {
+                zombies.remove(zombie);
+                world.destroyBody(zombie.b2body);
             }
         }
 
@@ -131,8 +143,13 @@ public class PlayScreen implements Screen {
 
         game.batch.begin();
         player.draw(game.batch);
+
         for (Bullet bullet : player.getBullets()) {
             bullet.draw(game.batch);
+        }
+
+        for (Zombie zombie : zombies) {
+            zombie.draw(game.batch);
         }
         game.batch.end();
     }
