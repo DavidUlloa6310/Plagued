@@ -7,6 +7,8 @@ public class DefaultZombie extends Zombie {
     public DefaultZombie(PlayScreen screen) {
         super(screen, "zdefault", 21, 32);
         b2body.setUserData(this);
+        System.out.println(b2body.getUserData() instanceof DefaultZombie);
+        System.out.println("Created Default Zombie");
     }
 
     public void update(float dt, Hero character) {

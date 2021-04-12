@@ -8,7 +8,6 @@ public abstract class Zombie extends GameCharacter {
 
     public Zombie(PlayScreen screen, String name, int width, int height) {
         super(screen, name, width, height);
-        b2body.setUserData(this);
     }
 
     public abstract void move(float x, float y);

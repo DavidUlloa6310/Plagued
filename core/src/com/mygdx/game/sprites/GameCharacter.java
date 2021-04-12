@@ -96,7 +96,7 @@ public abstract class GameCharacter extends Sprite {
     }
 
     public State getState() {
-        if (b2body.getLinearVelocity().x != 0 || b2body.getLinearVelocity().y != 0) {
+        if (b2body.getLinearVelocity().x > 0.5 || b2body.getLinearVelocity().y > 0.5 || b2body.getLinearVelocity().x < -0.5 || b2body.getLinearVelocity().y < -0.5) {
             return State.RUNNING;
         } else {
             return State.STANDING;
