@@ -1,19 +1,34 @@
 package com.mygdx.game.sprites;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.CircleShape;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.mygdx.game.PlaguedGame;
 import com.mygdx.game.screens.PlayScreen;
 
 public class DefaultZombie extends Zombie {
     public DefaultZombie(PlayScreen screen) {
         super(screen, "zdefault", 21, 32);
-        b2body.setUserData(this);
-        System.out.println(b2body.getUserData() instanceof DefaultZombie);
-        System.out.println("Created Default Zombie");
     }
 
     public void update(float dt, Hero character) {
         super.update(dt);
         move(character.getX(), character.getY());
+    }
+
+    @Override
+    public void defineCharacter() {
+        BodyDef bdef = new BodyDef();
+        bdef.position.set(50 / PlaguedGame.PPM, 750 / PlaguedGame.PPM);
+        bdef.type = BodyDef.BodyType.DynamicBody;
+        b2body = world.createBody(bdef);
+
+        FixtureDef fdef = new FixtureDef();
+        CircleShape shape = new CircleShape();
+        shape.setRadius(6 / PlaguedGame.PPM);
+        fdef.shape = shape;
+        b2body.createFixture(fdef).setUserData(this);
     }
 
     @Override

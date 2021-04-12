@@ -25,14 +25,15 @@ public class Bullet extends Sprite {
 
     private Animation<TextureRegion> bulletAnimation;
     private float stateTimer = 0f;
-    private boolean facingRight;
+    private DIRECTION direction;
+    boolean facingRight;
 
-    public Bullet(String name, float x, float y, int width, int height, boolean facingRight, PlayScreen screen) {
+    public Bullet(String name, float x, float y, int width, int height, boolean facingRight, DIRECTION direction, PlayScreen screen) {
         super(screen.getAtlas().findRegion(name));
         this.world = screen.getWorld();
         this.x = x;
         this.y = y;
-        this.facingRight = facingRight;
+        this.direction = direction;
 
         this.worldWidth = screen.getWorldWidth();
         this.worldHeight = screen.getWorldHeight();
@@ -47,21 +48,63 @@ public class Bullet extends Sprite {
         setBounds(0, 0, width / PlaguedGame.PPM, height /PlaguedGame.PPM);
         setRegion(frames.get(0));
 
-        if (facingRight) {
-            b2body.setLinearVelocity(new Vector2(10f, 0));
-        } else {
-            b2body.setLinearVelocity(new Vector2(-10f, 0));
+        switch (direction) {
+            case UP:
+                b2body.setLinearVelocity(new Vector2(0, 10f));
+                break;
+            case UP_RIGHT:
+                b2body.setLinearVelocity(new Vector2(10f, 10f));
+                break;
+            case UP_LEFT:
+                b2body.setLinearVelocity(new Vector2(-10f, 10f));
+                break;
+            case DOWN:
+                b2body.setLinearVelocity(new Vector2(0, -10f));
+                break;
+            case DOWN_RIGHT:
+                b2body.setLinearVelocity(new Vector2(10f, -10f));
+                break;
+            case DOWN_LEFT:
+                b2body.setLinearVelocity(new Vector2(-10f, -10f));
+                break;
+            case LEFT:
+                b2body.setLinearVelocity(new Vector2(-10f, 0));
+                break;
+            case RIGHT:
+                b2body.setLinearVelocity(new Vector2(10f, 0));
+                break;
         }
 
     }
 
     public void defineBullet(float x, float y) {
         BodyDef bdef = new BodyDef();
-        if (facingRight) {
-            bdef.position.set(x + .1f, y);
-        } else {
-            bdef.position.set(x - .1f, y);
+        switch (direction) {
+            case RIGHT:
+                bdef.position.set(x + .1f, y);
+                break;
+            case LEFT:
+                bdef.position.set(x - .1f, y);
+                break;
+            case UP_RIGHT:
+                bdef.position.set(x + .1f, y + .1f);
+                break;
+            case UP:
+                bdef.position.set(x, y + .1f);
+                break;
+            case UP_LEFT:
+                bdef.position.set(x - .1f, y + .1f);
+                break;
+            case DOWN:
+                bdef.position.set(x, y - .1f);
+                break;
+            case DOWN_LEFT:
+                bdef.position.set(x - .1f, y - .1f);
+            case DOWN_RIGHT:
+                bdef.position.set(x + .1f, y - .1f);
+                break;
         }
+
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
@@ -86,9 +129,10 @@ public class Bullet extends Sprite {
 
     public TextureRegion getFrame(float dt) {
         TextureRegion region = bulletAnimation.getKeyFrame(stateTimer, true);
-        if (!facingRight && !region.isFlipX()) {
+
+        if ((direction == DIRECTION.LEFT || direction == DIRECTION.UP_LEFT || direction == DIRECTION.DOWN_LEFT) && !region.isFlipX()) {
             region.flip(true, false);
-        } else if (facingRight && region.isFlipX()) {
+        } else if ((direction == DIRECTION.RIGHT || direction == DIRECTION.UP_RIGHT || direction == DIRECTION.DOWN_RIGHT) && region.isFlipX()) {
             region.flip(true, false);
         }
 

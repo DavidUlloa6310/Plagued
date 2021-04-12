@@ -1,5 +1,7 @@
 package com.mygdx.game.sprites;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -101,6 +103,33 @@ public abstract class GameCharacter extends Sprite {
         } else {
             return State.STANDING;
         }
+    }
+
+    public DIRECTION getArrowDirection() {
+        if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+                return DIRECTION.UP_RIGHT;
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
+                return DIRECTION.UP_LEFT;
+            return DIRECTION.UP;
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+                return DIRECTION.DOWN_RIGHT;
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
+                return DIRECTION.DOWN_LEFT;
+            return DIRECTION.DOWN;
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT))
+            return DIRECTION.LEFT;
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+            return DIRECTION.RIGHT;
+
+        if (isRunningRight())
+            return DIRECTION.RIGHT;
+        return DIRECTION.LEFT;
     }
 
     public boolean isRunningRight() {

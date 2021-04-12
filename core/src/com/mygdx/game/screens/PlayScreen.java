@@ -27,6 +27,7 @@ public class PlayScreen implements Screen {
 
     private Hero player;
     private ArrayList<Zombie> zombies;
+    private ArrayList<Zombie> zombiesToRemove;
 
     private PlaguedGame game;
     private TextureAtlas atlas;
@@ -64,6 +65,7 @@ public class PlayScreen implements Screen {
 
         player = new Gunner(this);
         zombies = new ArrayList<>();
+        zombiesToRemove = new ArrayList<>();
 
         world.setContactListener(new WorldContactListener());
 
@@ -84,7 +86,7 @@ public class PlayScreen implements Screen {
             player.b2body.applyLinearImpulse(new Vector2(.25f, 0), player.b2body.getWorldCenter(), true);
         if (Gdx.input.isKeyPressed(Input.Keys.S))
             player.b2body.applyLinearImpulse(new Vector2(0, -.25f), player.b2body.getWorldCenter(), true);
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             zombies.add(new DefaultZombie(this));
             System.out.println(zombies.size());
         }
@@ -109,10 +111,16 @@ public class PlayScreen implements Screen {
         for (Zombie zombie : zombies) {
             zombie.update(dt, player);
             if (zombie.remove) {
-                zombies.remove(zombie);
+                zombiesToRemove.add(zombie);
                 world.destroyBody(zombie.b2body);
             }
         }
+
+        //Bad Code: The Array Has to Iterate Through All Dead Zombies, Even though they're removed
+        for (Zombie zombie : zombiesToRemove) {
+            zombies.remove(zombie);
+        }
+        zombiesToRemove = new ArrayList<Zombie>();
 
         player.getBullets().removeAll(player.getBulletsToRemove(), true);
 
