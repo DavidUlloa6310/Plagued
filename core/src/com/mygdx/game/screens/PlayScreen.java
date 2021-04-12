@@ -79,13 +79,13 @@ public class PlayScreen implements Screen {
         if (Gdx.input.isKeyJustPressed(Input.Keys.F))
             player.primary();
         if (Gdx.input.isKeyPressed(Input.Keys.W))
-            player.b2body.applyLinearImpulse(new Vector2(0, .25f), player.b2body.getWorldCenter(), true);
+            player.b2body.applyLinearImpulse(new Vector2(0, .20f), player.b2body.getWorldCenter(), true);
         if (Gdx.input.isKeyPressed(Input.Keys.A))
-            player.b2body.applyLinearImpulse(new Vector2(-.25f, 0), player.b2body.getWorldCenter(), true);
+            player.b2body.applyLinearImpulse(new Vector2(-.20f, 0), player.b2body.getWorldCenter(), true);
         if (Gdx.input.isKeyPressed(Input.Keys.D))
-            player.b2body.applyLinearImpulse(new Vector2(.25f, 0), player.b2body.getWorldCenter(), true);
+            player.b2body.applyLinearImpulse(new Vector2(.20f, 0), player.b2body.getWorldCenter(), true);
         if (Gdx.input.isKeyPressed(Input.Keys.S))
-            player.b2body.applyLinearImpulse(new Vector2(0, -.25f), player.b2body.getWorldCenter(), true);
+            player.b2body.applyLinearImpulse(new Vector2(0, -.20f), player.b2body.getWorldCenter(), true);
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
             zombies.add(new DefaultZombie(this));
             System.out.println(zombies.size());
