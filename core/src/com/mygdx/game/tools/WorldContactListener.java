@@ -20,8 +20,6 @@ public class WorldContactListener implements ContactListener {
             ((Bullet) bullet.getUserData()).remove = true;
             ((DefaultZombie) zombie.getUserData()).remove  = true;
 
-            System.out.println("Zombie Bullet Collision");
-
         }
     }
 
