@@ -109,7 +109,7 @@ public class PlayScreen implements Screen {
 
         timer += dt;
 
-        if (timer >= 1.5f) {
+        if (timer >= 1.5f && !hud.isPaused()) {
             for (int i = 0; i < hud.getRound(); i++) {
                 zombies.add(new DefaultZombie(this, generateRandomSpawn()[0], generateRandomSpawn()[1]));
             }

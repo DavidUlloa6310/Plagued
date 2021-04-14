@@ -21,6 +21,8 @@ public class Hud implements Disposable {
 
     private float timeCount;
     private float zombieTime;
+    private boolean isPaused;
+    private float pausedTimer;
 
     private static Integer score;
     private Integer round;
@@ -43,6 +45,10 @@ public class Hud implements Disposable {
         worldTimer = 0;
         timeCount = 0;
         zombieTime = 0;
+
+        isPaused = false;
+        pausedTimer = 15;
+
         score = 0;
         round = 1;
         lives = 3;
@@ -92,16 +98,24 @@ public class Hud implements Disposable {
     public void update(float dt) {
         timeCount += dt;
         zombieTime += dt;
-        if (zombieTime >= 30) {
-            round++;
-            roundLabel.setText(String.format("%02d", round));
-            zombieTime = 0;
-        }
         if (timeCount >= 1) {
             worldTimer++;
-
             timeLabel.setText(String.format("%03d", worldTimer));
             timeCount = 0;
+        }
+
+        if (zombieTime >= getRoundTime()) {
+            isPaused = !isPaused;
+            if (isPaused) {
+                timeLabel.setColor(Color.RED);
+                timeTextLabel.setColor(Color.RED);
+            } else {
+                timeLabel.setColor(Color.WHITE);
+                timeTextLabel.setColor(Color.WHITE);
+                round++;
+            }
+            roundLabel.setText(String.format("%02d", round));
+            zombieTime = 0;
         }
     }
 
@@ -111,9 +125,19 @@ public class Hud implements Disposable {
     }
 
     public int getRound() {
-        return round; }
+        return round;
+    }
+
+    public boolean isPaused() {
+        return isPaused;
+    }
 
     @Override
     public void dispose() { stage.dispose(); }
+
+    public int getRoundTime() {
+        if (isPaused) return 15;
+        return 30;
+    }
 
 }
