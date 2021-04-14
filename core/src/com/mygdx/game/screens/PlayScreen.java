@@ -29,6 +29,7 @@ public class PlayScreen implements Screen {
     private Hero player;
     private ArrayList<Zombie> zombies;
     private ArrayList<Zombie> zombiesToRemove;
+    private float timer;
 
     private PlaguedGame game;
     private TextureAtlas atlas;
@@ -66,9 +67,12 @@ public class PlayScreen implements Screen {
         MapBodyBuilder.buildShapes(map, world, "Water");
         MapBodyBuilder.buildShapes(map, world, "Walls");
 
-        player = new Gunner(this);
+        player = new Gunner(this, 50, 700);
+
         zombies = new ArrayList<>();
         zombiesToRemove = new ArrayList<>();
+
+        timer = 0;
 
         world.setContactListener(new WorldContactListener());
 
@@ -90,7 +94,7 @@ public class PlayScreen implements Screen {
         if (Gdx.input.isKeyPressed(Input.Keys.S))
             player.b2body.applyLinearImpulse(new Vector2(0, -.20f), player.b2body.getWorldCenter(), true);
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            zombies.add(new DefaultZombie(this));
+            zombies.add(new DefaultZombie(this, 0, 700));
             System.out.println(zombies.size());
         }
     }
@@ -102,6 +106,16 @@ public class PlayScreen implements Screen {
         player.update(dt);
 
         world.step(1 / 60f, 6, 2);
+
+        timer += dt;
+
+        if (timer >= 1) {
+            for (int i = 0; i < hud.getRound(); i++) {
+                zombies.add(new DefaultZombie(this, generateRandomSpawn()[0], generateRandomSpawn()[1]));
+                System.out.println(i);
+            }
+            timer = 0;
+        }
 
         for (Bullet bullet : player.getBullets()) {
             bullet.update(dt);
@@ -207,5 +221,14 @@ public class PlayScreen implements Screen {
     public float getWorldHeight() {
         float dimension = (float) map.getProperties().get("height", Integer.class) * map.getProperties().get("tileheight", Integer.class);
         return dimension / PlaguedGame.PPM;
+    }
+
+    public int[] generateRandomSpawn() {
+        int[] point = new int[2];
+        int x = (int) (Math.random() * getWorldWidth() * 100);
+        int y = (int) (Math.random() * getWorldHeight() * 100);
+        point[0] = x;
+        point[1] = y;
+        return point;
     }
 }

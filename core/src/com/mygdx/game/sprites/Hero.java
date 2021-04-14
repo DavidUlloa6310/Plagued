@@ -11,8 +11,8 @@ public abstract class Hero extends GameCharacter{
 
     private PlayScreen screen;
 
-    public Hero(PlayScreen screen, String name, int width, int height) {
-        super(screen, name, width, height);
+    public Hero(PlayScreen screen, String name, int width, int height, int x, int y) {
+        super(screen, name, width, height, x, y);
         bullets = new Array<Bullet>();
         bulletsToRemove = new Array<Bullet>();
         this.screen = screen;

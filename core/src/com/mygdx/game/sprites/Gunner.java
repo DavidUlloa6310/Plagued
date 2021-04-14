@@ -7,8 +7,8 @@ import com.mygdx.game.screens.PlayScreen;
 
 public class Gunner extends Hero {
 
-    public Gunner(PlayScreen screen) {
-        super(screen, "gunner", 29, 31);
+    public Gunner(PlayScreen screen, int x, int y) {
+        super(screen, "gunner", 29, 31, x, y);
     }
 
     @Override

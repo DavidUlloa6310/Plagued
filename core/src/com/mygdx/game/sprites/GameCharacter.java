@@ -28,7 +28,7 @@ public abstract class GameCharacter extends Sprite {
     private float stateTimer;
     private boolean runningRight;
 
-    public GameCharacter(PlayScreen screen, String name, int width, int height) {
+    public GameCharacter(PlayScreen screen, String name, int width, int height, int x, int y) {
         super(screen.getAtlas().findRegion(name));
         this.world = screen.getWorld();
         currentState = previousState = State.STANDING;
@@ -42,7 +42,7 @@ public abstract class GameCharacter extends Sprite {
         characterRun = new Animation<TextureRegion>(.075f, frames);
         frames.clear();
 
-        defineCharacter();
+        defineCharacter(x, y);
 
         characterStand = new TextureRegion(getTexture(),getRegionX(), getRegionY(), width, height);
         setBounds(0, 0, width / PlaguedGame.PPM, height /PlaguedGame.PPM);
@@ -51,9 +51,9 @@ public abstract class GameCharacter extends Sprite {
         b2body.setLinearDamping(7);
     }
 
-    public void defineCharacter() {
+    public void defineCharacter(int x, int y) {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(50 / PlaguedGame.PPM, 750 / PlaguedGame.PPM);
+        bdef.position.set(x / PlaguedGame.PPM, y / PlaguedGame.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 
@@ -134,5 +134,9 @@ public abstract class GameCharacter extends Sprite {
 
     public boolean isRunningRight() {
         return runningRight;
+    }
+
+    public void spawn(int x, int y) {
+
     }
 }

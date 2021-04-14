@@ -8,8 +8,8 @@ import com.mygdx.game.PlaguedGame;
 import com.mygdx.game.screens.PlayScreen;
 
 public class DefaultZombie extends Zombie {
-    public DefaultZombie(PlayScreen screen) {
-        super(screen, "zdefault", 21, 32);
+    public DefaultZombie(PlayScreen screen, int x, int y) {
+        super(screen, "zdefault", 21, 32, x, y);
     }
 
     public void update(float dt, Hero character) {
@@ -18,9 +18,9 @@ public class DefaultZombie extends Zombie {
     }
 
     @Override
-    public void defineCharacter() {
+    public void defineCharacter(int x, int y) {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(50 / PlaguedGame.PPM, 750 / PlaguedGame.PPM);
+        bdef.position.set(x / PlaguedGame.PPM, y / PlaguedGame.PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
 

@@ -7,7 +7,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -19,7 +18,10 @@ public class Hud implements Disposable {
 
     private Integer worldTimer;
     private Integer lives;
+
     private float timeCount;
+    private float zombieTime;
+
     private static Integer score;
     private Integer round;
 
@@ -40,6 +42,7 @@ public class Hud implements Disposable {
     public Hud(SpriteBatch sb) {
         worldTimer = 0;
         timeCount = 0;
+        zombieTime = 0;
         score = 0;
         round = 1;
         lives = 3;
@@ -72,15 +75,15 @@ public class Hud implements Disposable {
         roundLabel.setFontScale(TEXT_SIZE);
 
         table.add(livesTextLabel).expandX().padTop(10);
-        table.add(timeTextLabel).expandX().padTop(10);
-        table.add(scoreTextLabel).expandX().padTop(10);
         table.add(roundTextLabel).expandX().padTop(10);
+        table.add(scoreTextLabel).expandX().padTop(10);
+        table.add(timeTextLabel).expandX().padTop(10);
 
         table.row();
         table.add(livesLabel);
-        table.add(timeLabel);
-        table.add(scoreLabel);
         table.add(roundLabel);
+        table.add(scoreLabel);
+        table.add(timeLabel);
 
         stage.addActor(table);
 
@@ -88,6 +91,12 @@ public class Hud implements Disposable {
 
     public void update(float dt) {
         timeCount += dt;
+        zombieTime += dt;
+        if (zombieTime >= 30) {
+            round++;
+            roundLabel.setText(String.format("%02d", round));
+            zombieTime = 0;
+        }
         if (timeCount >= 1) {
             worldTimer++;
 
@@ -100,6 +109,9 @@ public class Hud implements Disposable {
         score += value;
         scoreLabel.setText(String.format("%06d", score));
     }
+
+    public int getRound() {
+        return round; }
 
     @Override
     public void dispose() { stage.dispose(); }

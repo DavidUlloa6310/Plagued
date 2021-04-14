@@ -6,8 +6,8 @@ public abstract class Zombie extends GameCharacter {
 
     public boolean remove = false;
 
-    public Zombie(PlayScreen screen, String name, int width, int height) {
-        super(screen, name, width, height);
+    public Zombie(PlayScreen screen, String name, int width, int height, int x, int y) {
+        super(screen, name, width, height, x, y);
     }
 
     public abstract void move(float x, float y);
