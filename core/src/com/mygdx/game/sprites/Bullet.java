@@ -9,10 +9,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Disposable;
 import com.mygdx.game.PlaguedGame;
 import com.mygdx.game.screens.PlayScreen;
 
-public class Bullet extends Sprite {
+public class Bullet extends Sprite implements Disposable {
     private final int SPEED = 1000;
 
     float x, y;

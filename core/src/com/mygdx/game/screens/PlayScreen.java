@@ -17,6 +17,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.PlaguedGame;
+import com.mygdx.game.scenes.Hud;
 import com.mygdx.game.sprites.*;
 import com.mygdx.game.tools.MapBodyBuilder;
 import com.mygdx.game.tools.WorldContactListener;
@@ -34,6 +35,7 @@ public class PlayScreen implements Screen {
 
     private OrthographicCamera gameCam;
     private Viewport gamePort;
+    private Hud hud;
 
     private TmxMapLoader mapLoader;
     private TiledMap map;
@@ -48,6 +50,7 @@ public class PlayScreen implements Screen {
         this.game = game;
         gameCam = new OrthographicCamera();
         gamePort = new FitViewport(PlaguedGame.WIDTH / 1.75f / PlaguedGame.PPM, PlaguedGame.HEIGHT / 2f / PlaguedGame.PPM, gameCam);
+        hud = new Hud(game.batch);
 
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("endlessMap.tmx");
@@ -112,6 +115,7 @@ public class PlayScreen implements Screen {
             zombie.update(dt, player);
             if (zombie.remove) {
                 zombiesToRemove.add(zombie);
+                Hud.addScore(1);
                 world.destroyBody(zombie.b2body);
             }
         }
@@ -126,6 +130,8 @@ public class PlayScreen implements Screen {
 
         gameCam.position.x = player.b2body.getPosition().x;
         gameCam.position.y = player.b2body.getPosition().y;
+
+        hud.update(dt);
 
         gameCam.update();
         renderer.setView(gameCam);
@@ -161,7 +167,11 @@ public class PlayScreen implements Screen {
         for (Zombie zombie : zombies) {
             zombie.draw(game.batch);
         }
+
         game.batch.end();
+
+        game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+        hud.stage.draw();
     }
 
     @Override
