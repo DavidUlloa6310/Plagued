@@ -7,6 +7,9 @@ import com.mygdx.game.sprites.DefaultZombie;
 import com.mygdx.game.sprites.Zombie;
 
 public class WorldContactListener implements ContactListener {
+    /*
+    Detects collisions and does something based on that collision
+     */
 
     @Override
     public void beginContact(Contact contact) {

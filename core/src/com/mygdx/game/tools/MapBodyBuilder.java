@@ -12,6 +12,9 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.PlaguedGame;
 
 public class MapBodyBuilder {
+    /*
+    Sets map based on .ttx file.
+     */
 
     // The pixels per tile. If your tiles are 16x16, this is set to 16f
     private static float ppt = PlaguedGame.PPM;

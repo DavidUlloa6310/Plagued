@@ -5,6 +5,9 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.game.screens.PlayScreen;
 
 public abstract class Hero extends GameCharacter{
+    /*
+    Hero Class which inherits from Game Character.
+     */
 
     private Array<Bullet> bullets;
     private Array<Bullet> bulletsToRemove;

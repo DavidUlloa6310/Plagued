@@ -4,6 +4,9 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.screens.PlayScreen;
 
 public class Ninja extends Hero {
+    /*
+    Ninja Hero.
+     */
     public Ninja(PlayScreen screen, int x, int y) {
         super(screen, "ninja", 25, 30, x, y);
     }

@@ -13,6 +13,9 @@ import com.mygdx.game.PlaguedGame;
 import com.mygdx.game.screens.PlayScreen;
 
 public abstract class GameCharacter extends Sprite {
+    /*
+    GameCharacter which inherits from Sprite (LibGDX class).
+     */
 
     protected enum State {
         STANDING, RUNNING;

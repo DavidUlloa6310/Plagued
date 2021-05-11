@@ -9,6 +9,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.screens.PlayScreen;
 
 public class PlaguedGame extends Game {
+	/*
+	Basic and important final varibales for the game, including name, height width, and pixel density.
+	 */
 
 	public static final int WIDTH = 1600;
 	public static final int HEIGHT = 1200;

@@ -14,6 +14,9 @@ import com.mygdx.game.PlaguedGame;
 import com.mygdx.game.screens.PlayScreen;
 
 public class Bullet extends Sprite implements Disposable {
+    /*
+    Represents the bullets that can be fired from any GameCharacter.
+     */
     private final int SPEED = 1000;
 
     float x, y;

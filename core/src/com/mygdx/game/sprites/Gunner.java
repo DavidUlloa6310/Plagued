@@ -6,6 +6,9 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.game.screens.PlayScreen;
 
 public class Gunner extends Hero {
+    /*
+    Gunner hero which inherits from Hero.
+     */
 
     public Gunner(PlayScreen screen, int x, int y) {
         super(screen, "gunner", 29, 31, x, y);

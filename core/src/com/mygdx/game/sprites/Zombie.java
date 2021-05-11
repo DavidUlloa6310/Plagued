@@ -3,6 +3,9 @@ package com.mygdx.game.sprites;
 import com.mygdx.game.screens.PlayScreen;
 
 public abstract class Zombie extends GameCharacter {
+    /*
+    Zombie class, which inherits from GameCharacter
+     */
 
     public boolean remove = false;
 

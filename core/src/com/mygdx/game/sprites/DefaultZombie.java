@@ -8,6 +8,9 @@ import com.mygdx.game.PlaguedGame;
 import com.mygdx.game.screens.PlayScreen;
 
 public class DefaultZombie extends Zombie {
+    /*
+    The Default Zombie
+     */
     public DefaultZombie(PlayScreen screen, int x, int y) {
         super(screen, "zdefault", 21, 32, x, y);
     }
